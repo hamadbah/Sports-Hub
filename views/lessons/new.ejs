@@ -28,8 +28,18 @@
     <% clubs.forEach(club => { %>
     <option value="<%= club._id %>"><%= club.clubName %></option>
     <% }) %>
-    </select>
+    </select> <br><br>
 
+    <label>Select Instructors:</label><br><br>
+    <% instructors.forEach(function(instructor) { %>
+    <div>
+      <input type="checkbox" name="instructors" value="<%= instructor._id %>" id="instructor-<%= instructor._id %>">
+      <label for="instructor-<%= instructor._id %>">
+      <%= instructor.firstName %> <%= instructor.lastName %>
+      </label>
+    </div>
+    <% }); %>
+    <br><br>
     <button type="submit">Create</button>
     <a href="/lessons">Back to List</a>
   </form>

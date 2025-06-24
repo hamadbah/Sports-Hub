@@ -5,6 +5,16 @@
   <p>Lesson Duration: <%= lesson.lessonDuration %></p>
   <p>Lesson Instructions: <%= lesson.lessonInstructions %></p>
   <p>Club: <%= lesson.clubs ? lesson.clubs.clubName : 'None' %></p>
+  <p>Instructors:</p>
+  <ul>
+  <% if (lesson.instructors.length > 0) { %>
+    <% lesson.instructors.forEach(function(instructor) { %>
+      <li><%= instructor.firstName %> <%= instructor.lastName %></li>
+    <% }) %>
+  <% } else { %>
+    <li>No instructors assigned.</li>
+  <% } %>
+  </ul>
   
 <% if (user && (user.role === 'Admin')) { %>
     <a href="/lessons/<%= lesson._id %>/edit">Edit</a>

@@ -2,6 +2,7 @@ const router = require('express').Router();
 const isSignedIn = require('../middleware/is-signed-in');
 const Lesson = require('../models/lesson');
 const Club = require('../models/club');
+const User = require('../models/user');
 
 router.get('/', async (req, res) => {
   const lessons = await Lesson.find();
@@ -11,7 +12,8 @@ router.get('/', async (req, res) => {
 // Add New Lesson
 router.get('/new', async (req, res) => {
   const clubs = await Club.find(); 
-  res.render('lessons/new.ejs', { error: null, clubs });
+  const instructors = await User.find({ role: 'Instructor' });
+  res.render('lessons/new.ejs', { error: null, clubs, instructors });
 });
 
 router.post('/', async (req, res) => {
@@ -21,14 +23,19 @@ router.post('/', async (req, res) => {
     req.body.clubs = req.body.clubs ? [req.body.clubs] : [];
   }
 
+  if (!Array.isArray(req.body.instructors)) {
+    req.body.instructors = req.body.instructors ? [req.body.instructors] : [];
+  }
+
   const trimmedName = req.body.lessonName.trim();
 
   const existing = await Lesson.findOne({
     lessonName: new RegExp(`^${trimmedName}$`, 'i'), clubs: { $in: req.body.clubs }});
   if (existing) {
     const clubs = await Club.find();
+    const instructors = await User.find({ role: 'Instructor' });
     return res.render('lessons/new.ejs', {
-      error: "Lesson with this name already exists for the selected club.", clubs
+      error: "Lesson with this name already exists for the selected club.", clubs, instructors
     });
   }
     const lesson = await Lesson.create(req.body);
@@ -43,7 +50,7 @@ router.post('/', async (req, res) => {
 
 // Show One Lesson
 router.get('/:lessonId', async (req, res) => {
-  const lesson = await Lesson.findById(req.params.lessonId).populate('clubs').populate('players');
+  const lesson = await Lesson.findById(req.params.lessonId).populate('clubs').populate('players').populate('instructors');
    const userHasEnrolled = lesson.players.some((user) => (
         user.equals(req.session.user._id)
     ));
@@ -69,9 +76,10 @@ router.delete('/:lessonId/enrolled-by/:userId', async (req,res) => {
 
 // Edit a Lesson
 router.get('/:lessonId/edit', async (req, res) => {
-  const lesson = await Lesson.findById(req.params.lessonId);
+  const lesson = await Lesson.findById(req.params.lessonId).populate('clubs').populate('instructors');
   const clubs = await Club.find();
-  res.render('lessons/edit.ejs', { lesson, clubs, error: null });
+  const instructors = await User.find({ role: 'Instructor' });
+  res.render('lessons/edit.ejs', { lesson, clubs,instructors, error: null });
 });
 
 router.put('/:id', async (req, res) => {
@@ -91,6 +99,7 @@ router.put('/:id', async (req, res) => {
       return res.render('lessons/edit.ejs', {
         lesson,
         clubs: allClubs,
+        instructors,
         error: 'A lesson with this name already exists in the selected club.'
       });
     }
@@ -99,10 +108,14 @@ router.put('/:id', async (req, res) => {
       await Club.findByIdAndUpdate(oldClubId, { $pull: { classes: req.params.id } });
       await Club.findByIdAndUpdate(newClubId, { $push: { classes: req.params.id } });
     }
+    if (!Array.isArray(req.body.instructors)) {
+      req.body.instructors = req.body.instructors ? [req.body.instructors] : [];
+    }
 
+    
     // Update lesson
     await Lesson.findByIdAndUpdate(req.params.id, {
-      lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId
+      lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId, instructors: req.body.instructors
     });
 
     return res.redirect('/lessons');

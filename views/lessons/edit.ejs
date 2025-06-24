@@ -32,6 +32,19 @@
     <% }) %>
   </select>
 
+<br><br>
+<label>Select Instructors:</label><br>
+<% instructors.forEach(function(instructor) { 
+     const isChecked = lesson.instructors.some(selected => selected._id.toString() === instructor._id.toString());
+%>
+  <div>
+    <input type="checkbox" name="instructors" value="<%= instructor._id %>" id="instructor-<%= instructor._id %>" <%= isChecked ? 'checked' : '' %>>
+    <label for="instructor-<%= instructor._id %>">
+      <%= instructor.firstName %> <%= instructor.lastName %>
+    </label>
+  </div>
+<% }) %>
+
   <button type="submit">Update</button>
   <a href="/lessons">Back to List</a>
 </form>
