@@ -1,0 +1,36 @@
+<%- include("../partials/_navbar.ejs") %>
+
+  <h1>New Lesson</h1>
+
+  <% if (error) { %>
+    <p><%= error %></p>
+  <% } %>
+
+  <form action="/lessons" method="POST">
+    <label for="lessonName">Lesson Name:</label>
+    <input type="text" id="lessonName" name="lessonName" required/>
+
+    <label for="lessonPrice">Price:</label>
+    <input type="text" id="lessonPrice" name="lessonPrice"/>
+
+    <label for="lessonType">Type:</label>
+    <input type="text" id="lessonType" name="lessonType"/>
+
+    <label for="lessonDuration">Duration:</label>
+    <input type="text" id="lessonDuration" name="lessonDuration"/>
+
+    <label for="lessonInstructions">Instructions:</label>
+    <input type="text" id="lessonInstructions" name="lessonInstructions"/>
+
+    <label for="club">In Which Club:</label>
+    <select id="club" name="clubs" required>
+    <option value="">-- Choose a Club --</option>
+    <% clubs.forEach(club => { %>
+    <option value="<%= club._id %>"><%= club.clubName %></option>
+    <% }) %>
+    </select>
+
+    <button type="submit">Create</button>
+    <a href="/lessons">Back to List</a>
+  </form>
+

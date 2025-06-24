@@ -1,0 +1,16 @@
+<%- include("../partials/_navbar.ejs") %>
+
+<h1>Here's all the clubs</h1>
+
+<ul>
+  <% clubs.forEach(club => { %>
+    <li>
+      <span><%= club.clubName %></span>
+      <span> club is owned by:  <%= club.owner.username %></span>
+      <a href="/clubs/<%= club._id %>"> more details</a>
+    </li>
+  <% }) %>
+</ul>
+<% if (user && (user.role === 'Admin')) { %>
+  <a href="/clubs/new">Add a new Club</a>
+<% } %>

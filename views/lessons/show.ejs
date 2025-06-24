@@ -1,0 +1,27 @@
+<%- include("../partials/_navbar.ejs") %>
+  <h2>Lesson Name: <%= lesson.lessonName %></h2>
+  <p>Lesson Price: <%= lesson.lessonPrice %></p>
+  <p>Lesson Type: <%= lesson.lessonType %></p>
+  <p>Lesson Duration: <%= lesson.lessonDuration %></p>
+  <p>Lesson Instructions: <%= lesson.lessonInstructions %></p>
+  <p>Club: <%= lesson.clubs ? lesson.clubs.clubName : 'None' %></p>
+  
+<% if (user && (user.role === 'Admin')) { %>
+    <a href="/lessons/<%= lesson._id %>/edit">Edit</a>
+    <form action="/lessons/<%= lesson._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete</button>
+    </form>
+<% } %>
+<% if (user && user.role === 'Player') { %>
+  <% if (userHasEnrolled) { %>
+    <p>You've Enrolled this Lesson!</p>
+    <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>?_method=DELETE" method = "POST">
+      <button type = "submit">Withdraw!</button>
+    </form>
+  <% } else { %>
+    <p>You haven't enrolled this lesson!</p>
+    <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>" method = "POST">
+    <button type = "submit">Enroll!</button>
+  </form>
+  <% } %>
+<% } %>

@@ -1,0 +1,38 @@
+<%- include("../partials/_navbar.ejs") %>
+<br>
+  <h1><%= club.clubName %></h1>
+
+  <p><strong>Phone No:</strong> <%= club.phoneNo %></p>
+  <p><strong>Club Type:</strong> <%= club.clubType %></p>
+  <p><strong>Opening Hours:</strong> <%= club.openingHours %></p>
+
+<h3>Lessons:</h3>
+<ul>
+  <% if (club.classes.length > 0) { %>
+    <% club.classes.forEach(lesson => { %>
+      <li>
+        <a href="/lessons/<%= lesson._id %>"><%= lesson.lessonName %></a>
+        — <%= lesson.lessonType %> | <%= lesson.lessonDuration %>
+      </li>
+    <% }) %>
+  <% } else { %>
+    <li>No lessons yet.</li>
+  <% } %>
+</ul>
+
+  <% if (typeof error !== 'undefined') { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+
+  <% if (club.owner._id.equals(user._id)) { %>
+    <p>You own this!</p>
+    <hr>
+      <a href="/clubs/">Back</a>
+      <a href="/clubs/<%= club._id %>/edit">Edit</a>
+      <form action="/clubs/<%= club._id %>?_method=DELETE" method="POST">
+        <button type="submit">Delete</button>
+      </form>
+      <a href="/lessons/new">Add New Lesson</a>
+  <% } else { %>
+    <p>You don't own this, <%= club.owner.username %> does!</p>
+  <% } %>

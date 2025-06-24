@@ -1,0 +1,20 @@
+<%- include("../partials/_navbar.ejs") %>
+<br>
+  <h1>Create New Club</h1>
+
+  <form action="/clubs" method="POST">
+    <label for="clubName">Name of the Club:</label>
+    <input type="text" name="clubName" id="clubName" required>
+
+    <label for="phoneNo">Phone No:</label>
+    <input type="text" name="phoneNo" id="phoneNo" required>
+
+    <label for="clubType">Club Type:</label>
+    <input type="text" name="clubType" id="clubType" required>
+
+    <label for="openingHours">Opening Hours:</label>
+    <input type="text" name="openingHours" id="openingHours" required><br><br>
+
+    <button type="submit">Create Club</button>
+    <a href="/clubs/">Back</a>
+  </form>

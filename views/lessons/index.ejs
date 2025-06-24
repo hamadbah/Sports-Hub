@@ -1,0 +1,14 @@
+<%- include("../partials/_navbar.ejs") %>
+
+<h1>All Lessons</h1>
+<% if (user && (user.role === 'Admin')) { %>
+  <a href="/lessons/new">Add New Lesson</a>
+<% } %>
+<a href="/clubs">Back to Clubs</a>
+<ul>
+  <% lessons.forEach(lesson => { %>
+    <li>
+      <a href="/lessons/<%= lesson._id %>"><%= lesson.lessonName %></a>
+    </li>
+  <% }) %>
+</ul>
