@@ -1,0 +1,37 @@
+<%- include("../partials/_navbar.ejs") %>
+
+<h1>Edit Lesson</h1>
+
+<% if (error) { %>
+  <p style="color: red;"><%= error %></p>
+<% } %>
+
+<form action="/lessons/<%= lesson._id %>?_method=PUT" method="POST">
+  <label for="lessonName">Lesson Name:</label>
+  <input type="text" id="lessonName" name="lessonName" value="<%= lesson.lessonName %>" required/>
+
+  <label for="lessonPrice">Price:</label>
+  <input type="text" id="lessonPrice" name="lessonPrice" value="<%= lesson.lessonPrice %>"/>
+
+  <label for="lessonType">Type:</label>
+  <input type="text" id="lessonType" name="lessonType" value="<%= lesson.lessonType %>"/>
+
+  <label for="lessonDuration">Duration:</label>
+  <input type="text" id="lessonDuration" name="lessonDuration" value="<%= lesson.lessonDuration %>"/>
+
+  <label for="lessonInstructions">Instructions:</label>
+  <input type="text" id="lessonInstructions" name="lessonInstructions" value="<%= lesson.lessonInstructions %>"/>
+
+  <label for="club">In Which Club:</label>
+  <select id="club" name="clubs" required>
+    <option value="">-- Choose a Club --</option>
+    <% clubs.forEach(club => { %>
+      <option value="<%= club._id %>" <%= lesson.clubs && lesson.clubs.toString() === club._id.toString() ? 'selected' : '' %>>
+        <%= club.clubName %>
+      </option>
+    <% }) %>
+  </select>
+
+  <button type="submit">Update</button>
+  <a href="/lessons">Back to List</a>
+</form>

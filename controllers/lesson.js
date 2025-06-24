@@ -70,18 +70,58 @@ router.delete('/:lessonId/enrolled-by/:userId', async (req,res) => {
 // Edit a Lesson
 router.get('/:lessonId/edit', async (req, res) => {
   const lesson = await Lesson.findById(req.params.lessonId);
-  res.render('lessons/edit.ejs', { lesson });
+  const clubs = await Club.find();
+  res.render('lessons/edit.ejs', { lesson, clubs, error: null });
 });
 
-router.put('/:lessonId', async (req, res) => {
-  await Lesson.findByIdAndUpdate(req.params.lessonId, req.body);
-  res.redirect('/lessons');
+router.put('/:id', async (req, res) => {
+  const lesson = await Lesson.findById(req.params.id);
+  const allClubs = await Club.find();
+  const {
+    lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId
+    } = req.body;
+    const oldClubId = lesson.clubs?.toString();
+    // Check for duplicates
+    const duplicate = await Lesson.findOne({
+      _id: { $ne: req.params.id },
+      lessonName: { $regex: new RegExp(`^${lessonName}$`, 'i') },
+      clubs: newClubId
+    });
+    if (duplicate) {
+      return res.render('lessons/edit.ejs', {
+        lesson,
+        clubs: allClubs,
+        error: 'A lesson with this name already exists in the selected club.'
+      });
+    }
+    // Update club associations
+    if (oldClubId && oldClubId !== newClubId) {
+      await Club.findByIdAndUpdate(oldClubId, { $pull: { classes: req.params.id } });
+      await Club.findByIdAndUpdate(newClubId, { $push: { classes: req.params.id } });
+    }
+
+    // Update lesson
+    await Lesson.findByIdAndUpdate(req.params.id, {
+      lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId
+    });
+
+    return res.redirect('/lessons');
+
 });
 
 // Delete a lesson
 router.delete('/:lessonId', async (req, res) => {
-  await Lesson.findByIdAndDelete(req.params.lessonId);
-  res.redirect('/lessons');
+  const lesson = await Lesson.findById(req.params.lessonId);
+  if (lesson.clubs) {
+      await Club.findByIdAndUpdate(
+        lesson.clubs,
+        { $pull: { classes: lesson._id } }
+      );
+    }
+  // Delete the lesson itself
+    await Lesson.findByIdAndDelete(req.params.lessonId);
+
+    res.redirect('/lessons');
 });
 
 module.exports = router;
