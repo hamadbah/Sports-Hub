@@ -1,0 +1,27 @@
+<%- include("../partials/_navbar.ejs") %>
+<h1>My Lessons</h1>
+
+<% if (lessons.length === 0) { %>
+  <p>You are not assigned to any lessons yet.</p>
+<% } else { %>
+  <ul>
+    <% lessons.forEach(lesson => { %>
+      <li>
+        <strong><%= lesson.lessonName %></strong>
+        — Club: <%= lesson.clubs?.clubName || 'N/A' %>
+        — Players: <%= lesson.players.length %>
+        — <a href="/lessons/<%= lesson._id %>">View</a>
+
+        <% if (lesson.players.length > 0) { %>
+          <ul>
+            <% lesson.players.forEach(player => { %>
+              <li><%= player.firstName %> <%= player.lastName %></li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p>No players enrolled.</p>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>

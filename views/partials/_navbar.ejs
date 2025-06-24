@@ -18,4 +18,9 @@
     <a href="/clubs">Show all Clubs</a>
   </div>
    <% } %>
+   <% if (user && user.role === 'Instructor') { %>
+  <div>
+    <a href="/lessons/instructor-page">Show My Lessons</a>
+  </div>
+   <% } %>
   </nav>

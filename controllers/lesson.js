@@ -9,6 +9,13 @@ router.get('/', async (req, res) => {
   res.render('lessons/index.ejs', { lessons });
 });
 
+// Instructor Router
+router.get('/instructor-page', isSignedIn, async (req, res) => {
+    const instructorId = req.session.user._id;
+    const lessons = await Lesson.find({ instructors: instructorId }).populate('clubs').populate('players');
+    res.render('lessons/instructor-page.ejs', { lessons });
+});
+
 // Add New Lesson
 router.get('/new', async (req, res) => {
   const clubs = await Club.find(); 
