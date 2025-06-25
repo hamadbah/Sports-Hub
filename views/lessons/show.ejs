@@ -17,6 +17,7 @@
   </ul>
   
 <% if (user && (user.role === 'Admin')) { %>
+    <a href="/clubs/<%= lesson.clubs._id %>">Back to <%= lesson.clubs.clubName %></a>
     <a href="/lessons/<%= lesson._id %>/edit">Edit</a>
     <form action="/lessons/<%= lesson._id %>?_method=DELETE" method="POST">
       <button type="submit">Delete</button>
@@ -34,4 +35,5 @@
     <button type = "submit">Enroll!</button>
   </form>
   <% } %>
+  <a href="/clubs/<%= lesson.clubs._id %>">Back to <%= lesson.clubs.clubName %></a>
 <% } %>
