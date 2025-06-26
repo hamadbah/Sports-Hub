@@ -1,20 +1,33 @@
 <%- include("../partials/_navbar.ejs") %>
-<br>
-  <h1>Create New Club</h1>
+<link rel="stylesheet" href="/stylesheets/style.css"/>  
+<div class="container">
+  <h1 class="page-title"> Create New Club</h1>
 
-  <form action="/clubs" method="POST">
-    <label for="clubName">Name of the Club:</label>
-    <input type="text" name="clubName" id="clubName" required>
+  <form action="/clubs" method="POST" class="form-card">
+    <div class="form-group">
+      <label for="clubName">Name of the Club:</label>
+      <input type="text" name="clubName" id="clubName" required>
+    </div>
 
-    <label for="phoneNo">Phone No:</label>
-    <input type="text" name="phoneNo" id="phoneNo" required>
+    <div class="form-group">
+      <label for="phoneNo">Phone No:</label>
+      <input type="text" name="phoneNo" id="phoneNo" required>
+    </div>
 
-    <label for="clubType">Club Type:</label>
-    <input type="text" name="clubType" id="clubType" required>
+    <div class="form-group">
+      <label for="clubType">Club Type:</label>
+      <input type="text" name="clubType" id="clubType" required>
+    </div>
 
-    <label for="openingHours">Opening Hours:</label>
-    <input type="text" name="openingHours" id="openingHours" required><br><br>
+    <div class="form-group">
+      <label for="openingHours">Opening Hours:</label>
+      <input type="text" name="openingHours" id="openingHours" required>
+    </div>
 
-    <button type="submit">Create Club</button>
-    <a href="/clubs/">Back</a>
+    <div class="button-group">
+      <button type="submit" class="button">Create Club</button>
+      <a href="/clubs" class="back-btn">Back</a>
+    </div>
   </form>
+</div>
+<%- include('./partials/_footer.ejs') %>

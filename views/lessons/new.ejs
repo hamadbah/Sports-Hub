@@ -1,46 +1,66 @@
 <%- include("../partials/_navbar.ejs") %>
-
-  <h1>New Lesson</h1>
+<link rel="stylesheet" href="/stylesheets/style.css"/> 
+<div class="container">
+  <h1 class="page-title">New Lesson</h1>
 
   <% if (error) { %>
-    <p><%= error %></p>
+    <p class="error-message"><%= error %></p>
   <% } %>
 
-  <form action="/lessons" method="POST">
-    <label for="lessonName">Lesson Name:</label>
-    <input type="text" id="lessonName" name="lessonName" required/>
-
-    <label for="lessonPrice">Price:</label>
-    <input type="text" id="lessonPrice" name="lessonPrice"/>
-
-    <label for="lessonType">Type:</label>
-    <input type="text" id="lessonType" name="lessonType"/>
-
-    <label for="lessonDuration">Duration:</label>
-    <input type="text" id="lessonDuration" name="lessonDuration"/>
-
-    <label for="lessonInstructions">Instructions:</label>
-    <input type="text" id="lessonInstructions" name="lessonInstructions"/>
-
-    <label for="club">In Which Club:</label>
-    <select id="club" name="clubs" required>
-    <option value="">-- Choose a Club --</option>
-    <% clubs.forEach(club => { %>
-    <option value="<%= club._id %>"><%= club.clubName %></option>
-    <% }) %>
-    </select> <br><br>
-
-    <label>Select Instructors:</label><br><br>
-    <% instructors.forEach(function(instructor) { %>
-    <div>
-      <input type="checkbox" name="instructors" value="<%= instructor._id %>" id="instructor-<%= instructor._id %>">
-      <label for="instructor-<%= instructor._id %>">
-      <%= instructor.firstName %> <%= instructor.lastName %>
-      </label>
+  <form action="/lessons" method="POST" class="form-card">
+    <div class="form-group">
+      <label for="lessonName">Lesson Name:</label>
+      <input type="text" id="lessonName" name="lessonName" required />
     </div>
-    <% }); %>
-    <br><br>
-    <button type="submit">Create</button>
-    <a href="/lessons">Back to List</a>
-  </form>
 
+    <div class="form-group">
+      <label for="lessonPrice">Price:</label>
+      <input type="text" id="lessonPrice" name="lessonPrice" />
+    </div>
+
+    <div class="form-group">
+      <label for="lessonType">Type:</label>
+      <input type="text" id="lessonType" name="lessonType" />
+    </div>
+
+    <div class="form-group">
+      <label for="lessonDuration">Duration:</label>
+      <input type="text" id="lessonDuration" name="lessonDuration" />
+    </div>
+
+    <div class="form-group">
+      <label for="lessonInstructions">Instructions:</label>
+      <input type="text" id="lessonInstructions" name="lessonInstructions" />
+    </div>
+
+    <div class="form-group">
+      <label for="club">In Which Club:</label>
+      <select id="club" name="clubs" required>
+        <option value="">-- Choose a Club --</option>
+        <% clubs.forEach(club => { %>
+          <option value="<%= club._id %>"><%= club.clubName %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Select Instructors:</label>
+      <div class="checkbox-group">
+        <% instructors.forEach(function(instructor) { %>
+          <div class="checkbox-item">
+            <input type="checkbox" name="instructors" value="<%= instructor._id %>" id="instructor-<%= instructor._id %>" />
+            <label for="instructor-<%= instructor._id %>">
+              <%= instructor.firstName %> <%= instructor.lastName %>
+            </label>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button">Create</button>
+      <a href="/lessons" class="back-btn">Back to List</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/_footer.ejs') %>

@@ -1,39 +1,51 @@
 <%- include('../partials/_navbar.ejs') %>
+<link rel="stylesheet" href="/stylesheets/style.css"/> 
+<div class="container">
+  <h1 class="page-title">Create a New Account</h1>
 
-<h1>Create a New Account</h1>
+  <form method="POST" action="/auth/sign-up" class="form-card">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" name="firstName" id="firstName" required>
+    </div>
 
-<form method="POST" action="/auth/sign-up">
-  <label for="firstName">First Name</label>
-  <input type="text" name="firstName" id="firstName" required>
-  <br>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" name="lastName" id="lastName" required>
+    </div>
 
-  <label for="lastName">Last Name</label>
-  <input type="text" name="lastName" id="lastName" required>
-  <br>
+    <div class="form-group">
+      <label for="phoneNo">Phone Number</label>
+      <input type="text" name="phoneNo" id="phoneNo">
+    </div>
 
-  <label for="phoneNo">Phone Number</label>
-  <input type="text" name="phoneNo" id="phoneNo">
-  <br>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+    </div>
 
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username" required>
-  <br>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+    </div>
 
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password" required>
-  <br>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirmPassword" required>
+    </div>
 
-  <label for="confirmPassword">Confirm Password</label>
-  <input type="password" name="confirmPassword" id="confirmPassword" required>
-  <br>
+    <div class="form-group">
+      <label for="role">Role</label>
+      <select name="role" id="role" required>
+        <option value="">--Select Role--</option>
+        <option value="Instructor">Instructor</option>
+        <option value="Player">Player</option>
+      </select>
+    </div>
 
-  <label for="role">Role</label>
-  <select name="role" id="role" required>
-    <option value="">--Select Role--</option>
-    <option value="Instructor">Instructor</option>
-    <option value="Player">Player</option>
-  </select>
-  <br><br>
-
-  <button type="submit">Sign Up</button>
-</form>
+    <div class="button-group">
+      <button type="submit" class="button">Sign Up</button>
+    </div>
+  </form>
+</div>
+<%- include('../partials/_footer.ejs') %>

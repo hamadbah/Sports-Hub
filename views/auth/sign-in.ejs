@@ -1,11 +1,22 @@
 <%- include('../partials/_navbar.ejs') %>
-<h1>Sign In</h1>
-<form action="/auth/sign-in" method="POST">
-  <label for="username">Username</label>
-  <input type="text" name="username" id="username">
-  <br>
-  <label for="password">Password</label>
-  <input type="password" name="password" id="password">
-  <br>
-  <button type="submit">Sign In</button>
-</form>
+<link rel="stylesheet" href="/stylesheets/style.css"/> 
+<div class="container">
+  <h1 class="page-title">🔐 Sign In</h1>
+
+  <form action="/auth/sign-in" method="POST" class="form-card">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button">Sign In</button>
+    </div>
+  </form>
+</div>
+<%- include('../partials/_footer.ejs') %>

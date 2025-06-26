@@ -1,40 +1,56 @@
 <%- include("../partials/_navbar.ejs") %>
-<br>
-<h1>Edit Club Details</h1>
-<% if (typeof error !== 'undefined' && error) { %>
-  <div style="color: red; font-weight: bold; margin-bottom: 10px;">
-    <%= error %>
-  </div>
-<% } %>
-<form action="/clubs/<%= club._id %>?_method=PUT" method="POST">
+<link rel="stylesheet" href="/stylesheets/style.css"/>  
+<div class="container">
+  <h1 class="page-title">Edit Club Details</h1>
 
-  <label for="clubName">Name of the Club:</label>
-  <input type="text" id="clubName" name="clubName" value="<%= club.clubName %>" required/>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
 
-  <label for="phoneNo">Phone No:</label>
-  <input type="text" id="phoneNo" name="phoneNo" value="<%= club.phoneNo %>" required/>
+  <form action="/clubs/<%= club._id %>?_method=PUT" method="POST" class="form-card">
+    <div class="form-group">
+      <label for="clubName">Name of the Club:</label>
+      <input type="text" id="clubName" name="clubName" value="<%= club.clubName %>" required/>
+    </div>
 
-  <label for="clubType">Club Type:</label>
-  <input type="text" id="clubType" name="clubType" value="<%= club.clubType %>" required/>
+    <div class="form-group">
+      <label for="phoneNo">Phone No:</label>
+      <input type="text" id="phoneNo" name="phoneNo" value="<%= club.phoneNo %>" required/>
+    </div>
 
-  <label for="openingHours">Opening Hours:</label>
-  <input type="text" id="openingHours" name="openingHours" value="<%= club.openingHours %>" required/> 
-  <ul> Lessons:
-    <% allLessons.forEach(lesson => { %>
-    <li>
-      <label>
-        <input
-          type="checkbox"
-          name="classes"
-          value="<%= lesson._id %>"
-          <%= club.classes.map(id => id.toString()).includes(lesson._id.toString()) ? 'checked' : '' %>
-        />
-        <%= lesson.lessonName %>
-      </label>
-    </li>
-    <% }) %>
-  </ul>
-  <button type="submit">Update</button>
-  <a href="/clubs/<%= club._id %>">Back</a>
+    <div class="form-group">
+      <label for="clubType">Club Type:</label>
+      <input type="text" id="clubType" name="clubType" value="<%= club.clubType %>" required/>
+    </div>
 
-</form>
+    <div class="form-group">
+      <label for="openingHours">Opening Hours:</label>
+      <input type="text" id="openingHours" name="openingHours" value="<%= club.openingHours %>" required/>
+    </div>
+
+    <div class="form-group">
+      <label>Lessons:</label>
+      <ul class="lesson-checkbox-list">
+        <% allLessons.forEach(lesson => { %>
+          <li>
+            <label class="checkbox-label">
+              <input
+                type="checkbox"
+                name="classes"
+                value="<%= lesson._id %>"
+                <%= club.classes.map(id => id.toString()).includes(lesson._id.toString()) ? 'checked' : '' %>
+              />
+              <%= lesson.lessonName %>
+            </label>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="button">Update</button>
+      <a href="/clubs/<%= club._id %>" class="back-btn">Back</a>
+    </div>
+  </form>
+</div>
+<%- include('../partials/_footer.ejs') %>

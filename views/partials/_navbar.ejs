@@ -1,26 +1,37 @@
-    <nav>
+<nav class="navbar">
+  <div class="navbar-left">
     <% if (user) { %>
-      <h1>Welcome to the App! <%= user.username %></h1>
-      <a href="/auth/sign-out">Sign out</a>
+      <h1>Welcome, <%= user.username %>!</h1>
     <% } else { %>
-      <h1>Welcome to the app, guest.</h1>
-      <a href="/auth/sign-up">Sign up</a>
-      <a href="/auth/sign-in">Sign in</a>
+      <h1>Welcome to the Sport Hub</h1>
     <% } %>
-    <% if (user && user.role === 'Admin') { %>
-  <div>
-    <a href="/clubs">Show all Clubs</a>
-    <a href="/lessons">Show all Lessons</a>
   </div>
-   <% } %>
-  <% if (user && user.role === 'Player') { %>
-  <div>
-    <a href="/clubs">Show all Clubs</a>
+
+  <div class="navbar-right">
+    <% if (!user) { %>
+      <a href="/auth/sign-up" class="button">Sign up</a>
+      <a href="/auth/sign-in" class="button">Sign in</a>
+    <% } else { %>
+      <a href="/auth/sign-out" class="button">Sign out</a>
+    <% } %>
   </div>
-   <% } %>
-   <% if (user && user.role === 'Instructor') { %>
-  <div>
-    <a href="/lessons/instructor-page">Show My Lessons</a>
+</nav>
+
+<% if (user && user.role === 'Admin') { %>
+  <div class="main-menu">
+    <a href="/clubs" class="menu-btn">Show all Clubs</a>
+    <a href="/lessons" class="menu-btn">Show all Lessons</a>
   </div>
-   <% } %>
-  </nav>
+<% } %>
+
+<% if (user && user.role === 'Player') { %>
+  <div class="main-menu">
+    <a href="/clubs" class="menu-btn">Show all Clubs</a>
+  </div>
+<% } %>
+
+<% if (user && user.role === 'Instructor') { %>
+  <div class="main-menu">
+    <a href="/lessons/instructor-page" class="menu-btn">Show My Lessons</a>
+  </div>
+<% } %>

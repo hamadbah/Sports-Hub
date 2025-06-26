@@ -1,16 +1,22 @@
 <%- include("../partials/_navbar.ejs") %>
+<link rel="stylesheet" href="/stylesheets/style.css"/>  
+<div class="container">
+  <h1 class="page-title">Here’s All the Clubs</h1>
 
-<h1>Here's all the clubs</h1>
+  <ul class="club-list">
+    <% clubs.forEach(club => { %>
+      <li class="club-item">
+        <span class="club-name"><%= club.clubName %></span>
+        <span class="club-owner"> — Owned by: <%= club.owner.username %></span>
+        <a href="/clubs/<%= club._id %>" class="club-link">More Details</a>
+      </li>
+    <% }) %>
+  </ul>
 
-<ul>
-  <% clubs.forEach(club => { %>
-    <li>
-      <span><%= club.clubName %></span>
-      <span> club is owned by:  <%= club.owner.username %></span>
-      <a href="/clubs/<%= club._id %>"> more details</a>
-    </li>
-  <% }) %>
-</ul>
-<% if (user && (user.role === 'Admin')) { %>
-  <a href="/clubs/new">Add a new Club</a>
-<% } %>
+  <% if (user && user.role === 'Admin') { %>
+    <div class="button-group">
+      <a href="/clubs/new" class="add-btn">Add a New Club</a>
+    </div>
+  <% } %>
+</div>
+<%- include('../partials/_footer.ejs') %>

@@ -1,27 +1,30 @@
 <%- include("../partials/_navbar.ejs") %>
-<h1>My Lessons</h1>
+<link rel="stylesheet" href="/stylesheets/style.css"/> 
+<div class="container">
+  <h1 class="page-title">My Lessons</h1>
 
-<% if (lessons.length === 0) { %>
-  <p>You are not assigned to any lessons yet.</p>
-<% } else { %>
-  <ul>
-    <% lessons.forEach(lesson => { %>
-      <li>
-        <strong><%= lesson.lessonName %></strong>
-        — Club: <%= lesson.clubs?.clubName || 'N/A' %>
-        — Players: <%= lesson.players.length %>
-        — <a href="/lessons/<%= lesson._id %>">View</a>
+  <% if (lessons.length === 0) { %>
+    <p class="info-message">You are not assigned to any lessons yet.</p>
+  <% } else { %>
+    <ul class="lesson-list">
+      <% lessons.forEach(lesson => { %>
+        <li class="lesson-item">
+          <strong class="lesson-name"><%= lesson.lessonName %></strong>
+          <span> — Club: <%= lesson.clubs?.clubName || 'N/A' %></span>
+          <span> — Players: <%= lesson.players.length %></span>
+          <a href="/lessons/<%= lesson._id %>" class="button">View</a>
 
-        <% if (lesson.players.length > 0) { %>
-          <ul>
-            <% lesson.players.forEach(player => { %>
-              <li><%= player.firstName %> <%= player.lastName %></li>
-            <% }) %>
-          </ul>
-        <% } else { %>
-          <p>No players enrolled.</p>
-        <% } %>
-      </li>
-    <% }) %>
-  </ul>
-<% } %>
+          <% if (lesson.players.length > 0) { %>
+            <ul class="player-list">
+              <% lesson.players.forEach(player => { %>
+                <li class="player-item"><%= player.firstName %> <%= player.lastName %></li>
+              <% }) %>
+            </ul>
+          <% } else { %>
+            <p class="info-message">No players enrolled.</p>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</div>

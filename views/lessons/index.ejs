@@ -1,14 +1,26 @@
 <%- include("../partials/_navbar.ejs") %>
+<link rel="stylesheet" href="/stylesheets/style.css"/> 
+<div class="container">
+  <h1 class="page-title">All Lessons</h1>
 
-<h1>All Lessons</h1>
-<% if (user && (user.role === 'Admin')) { %>
-  <a href="/lessons/new">Add New Lesson</a>
-<% } %>
-<a href="/clubs">Back to Clubs</a>
-<ul>
-  <% lessons.forEach(lesson => { %>
-    <li>
-      <a href="/lessons/<%= lesson._id %>"><%= lesson.lessonName %></a>
-    </li>
-  <% }) %>
-</ul>
+  <ul class="club-list">
+    <% lessons.forEach(lesson => { %>
+      <li class="club-item">
+        <a href="/lessons/<%= lesson._id %>" class="lesson-link"><%= lesson.lessonName %></a>
+      </li>
+    <% }) %>
+  </ul>
+
+
+  <% if (user && user.role === 'Admin') { %>
+    <div class="button-group">
+      <a href="/lessons/new" class="add-btn">Add New Lesson</a>
+      <a href="/clubs" class="button">Back to Clubs</a>
+    </div>
+  <% } else { %>
+    <div class="button-group">
+      <a href="/clubs" class="back-btn">Back to Clubs</a>
+    </div>
+  <% } %>
+</div>
+<%- include('../partials/_footer.ejs') %>

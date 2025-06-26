@@ -3,10 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth Application</title>
+    <title>Sport Hub</title>
+    <link rel="stylesheet" href="/stylesheets/style.css"/>   
 </head>
 <body>
     <%- include('./partials/_navbar.ejs') %>
-    <h1>Welcome to the Sport Hub Application</h1>
+    <br>
+
+    <div class="container">
+        <h1 class="page-title">Welcome to the</h1>
+        <div class="center-image">
+            <img src="/images/summer.jpg" alt="Sport Hub Logo">
+        </div>
+        <p style="text-align:center;">Manage your clubs, lessons, and more in one place.</p>
+    </div>
+    <%- include('./partials/_footer.ejs') %>
 </body>
 </html>

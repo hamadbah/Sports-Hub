@@ -1,39 +1,56 @@
 <%- include("../partials/_navbar.ejs") %>
-  <h2>Lesson Name: <%= lesson.lessonName %></h2>
-  <p>Lesson Price: <%= lesson.lessonPrice %></p>
-  <p>Lesson Type: <%= lesson.lessonType %></p>
-  <p>Lesson Duration: <%= lesson.lessonDuration %></p>
-  <p>Lesson Instructions: <%= lesson.lessonInstructions %></p>
-  <p>Club: <%= lesson.clubs ? lesson.clubs.clubName : 'None' %></p>
-  <p>Instructors:</p>
-  <ul>
-  <% if (lesson.instructors.length > 0) { %>
-    <% lesson.instructors.forEach(function(instructor) { %>
-      <li><%= instructor.firstName %> <%= instructor.lastName %></li>
-    <% }) %>
-  <% } else { %>
-    <li>No instructors assigned.</li>
+<link rel="stylesheet" href="/stylesheets/style.css"/>  
+<div class="container">
+  <h2 class="page-title">📘 Lesson: <%= lesson.lessonName %></h2>
+
+  <div class="lesson-details">
+    <p><strong>💰 Price:</strong> <%= lesson.lessonPrice %></p>
+    <p><strong>🏷️ Type:</strong> <%= lesson.lessonType %></p>
+    <p><strong>⏱️ Duration:</strong> <%= lesson.lessonDuration %></p>
+    <p><strong>📝 Instructions:</strong> <%= lesson.lessonInstructions %></p>
+    <p><strong>🏟️ Club:</strong> <%= lesson.clubs ? lesson.clubs.clubName : 'None' %></p>
+  </div>
+
+  <div class="instructor-section">
+    <h3 class="section-title">👨‍🏫 Instructors</h3>
+    <ul class="lesson-list">
+      <% if (lesson.instructors.length > 0) { %>
+        <% lesson.instructors.forEach(function(instructor) { %>
+          <li class="lesson-item"><%= instructor.firstName %> <%= instructor.lastName %></li>
+        <% }) %>
+      <% } else { %>
+        <li class="lesson-item">No instructors assigned.</li>
+      <% } %>
+    </ul>
+  </div>
+
+  <% if (user && user.role === 'Admin') { %>
+    <div class="button-group">
+      <a href="/clubs/<%= lesson.clubs._id %>" class="back-btn">Back to <%= lesson.clubs.clubName %></a>
+      <a href="/lessons/<%= lesson._id %>/edit" class="button">Edit</a>
+      <form action="/lessons/<%= lesson._id %>?_method=DELETE" method="POST" class="inline-form">
+        <button type="submit" class="btn danger">Delete</button>
+      </form>
+    </div>
   <% } %>
-  </ul>
-  
-<% if (user && (user.role === 'Admin')) { %>
-    <a href="/clubs/<%= lesson.clubs._id %>">Back to <%= lesson.clubs.clubName %></a>
-    <a href="/lessons/<%= lesson._id %>/edit">Edit</a>
-    <form action="/lessons/<%= lesson._id %>?_method=DELETE" method="POST">
-      <button type="submit">Delete</button>
-    </form>
-<% } %>
-<% if (user && user.role === 'Player') { %>
-  <% if (userHasEnrolled) { %>
-    <p>You've Enrolled this Lesson!</p>
-    <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>?_method=DELETE" method = "POST">
-      <button type = "submit">Withdraw!</button>
-    </form>
-  <% } else { %>
-    <p>You haven't enrolled this lesson!</p>
-    <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>" method = "POST">
-    <button type = "submit">Enroll!</button>
-  </form>
+
+  <% if (user && user.role === 'Player') { %>
+    <div class="enrollment-section">
+      <% if (userHasEnrolled) { %>
+        <p class="success-message">✅ You've Enrolled in this Lesson!</p>
+        <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>?_method=DELETE" method="POST" class="inline-form">
+          <button type="submit" class="btn danger">Withdraw</button>
+        </form>
+      <% } else { %>
+        <p class="warning-message">⚠️ You haven't enrolled in this lesson.</p>
+        <form action="/lessons/<%= lesson._id %>/enrolled-by/<%= user._id %>" method="POST" class="inline-form">
+          <button type="submit" class="btn-enroll">Enroll</button>
+        </form>
+      <% } %>
+      <div class="button-group">
+        <a href="/clubs/<%= lesson.clubs._id %>" class="back-btn">Back to <%= lesson.clubs.clubName %></a>
+      </div>
+    </div>
   <% } %>
-  <a href="/clubs/<%= lesson.clubs._id %>">Back to <%= lesson.clubs.clubName %></a>
-<% } %>
+</div>
+<%- include('../partials/_footer.ejs') %>
