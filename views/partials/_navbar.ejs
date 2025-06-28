@@ -1,7 +1,7 @@
 <nav class="navbar">
   <div class="navbar-left">
     <% if (user) { %>
-      <h1>Welcome, <%= user.username %>!</h1>
+      <h1>Welcome, <%= user.role %>: <%= user.username %>!</h1>
     <% } else { %>
       <h1>Welcome to the Sport Hub, guest</h1>
     <% } %>
