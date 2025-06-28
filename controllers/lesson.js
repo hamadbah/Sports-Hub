@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
 router.get('/:lessonId', async (req, res) => {
   const lesson = await Lesson.findById(req.params.lessonId).populate('clubs').populate('players').populate('instructors');
    const userHasEnrolled = lesson.players.some((user) => (
-        user.equals(req.session.user._id)
+        user.equals(req.session.user._id) //Compares MongoDB ObjectIds
     ));
 
   res.render('lessons/show.ejs', { lesson, userHasEnrolled });
@@ -95,10 +95,10 @@ router.put('/:id', async (req, res) => {
   const {
     lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId
     } = req.body;
-    const oldClubId = lesson.clubs?.toString();
+    const oldClubId = lesson.clubs?.toString(); //? mark used to avoid null or undifined lesson.clubs
     // Check for duplicates
     const duplicate = await Lesson.findOne({
-      _id: { $ne: req.params.id },
+      _id: { $ne: req.params.id }, // $ne mean not equal
       lessonName: { $regex: new RegExp(`^${lessonName}$`, 'i') },
       clubs: newClubId
     });
