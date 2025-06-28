@@ -33,6 +33,7 @@ app.use(methodOverride("_method"));
 app.use(morgan('dev'));
 
 // Static Folder 
+app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Session Configurations
@@ -53,9 +54,11 @@ app.get("/", async(req, res) => {
 // Require Controller - Importing the controller
 const authController = require("./controllers/auth");
 const clubController = require("./controllers/club");
+const publicClubController = require("./controllers/public-clubs");
 const lessonController = require('./controllers/lesson');
 const User = require("./models/user");
 app.use("/auth", authController);
+app.use("/public-clubs", publicClubController);
 app.use("/clubs", isSignedIn, clubController);
 app.use('/lessons', isSignedIn, lessonController);
 

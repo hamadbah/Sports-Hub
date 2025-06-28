@@ -443,3 +443,18 @@ button:hover {
     width: 100%;
     height: auto;
 }
+
+.club-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.club-name, .lesson-name {
+  text-align: left;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}

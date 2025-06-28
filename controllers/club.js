@@ -28,9 +28,6 @@ router.post('/', async (req, res) => {
 // Show One Club
 router.get("/:clubId", async (req, res) => {
   const club = await Club.findById(req.params.clubId).populate('owner').populate('classes'); // populate classes objects
-  if (!club) {
-    return res.render('clubs/show.ejs', { error: 'Club not found', club: null });
-  }
   res.render("clubs/show.ejs", { club });
 });
 

@@ -1,0 +1,20 @@
+<%- include('../partials/_navbar') %>
+<link rel="stylesheet" href="/stylesheets/style.css"/>  
+<div class="container">
+  <h1>All Clubs</h1>
+  <h2 class="warning-message">To Enroll in any of the following Lessons, you need to SING UP First!</h2>
+  <% clubs.forEach(club => { %>
+    <h2 class="club-name"><%= club.clubName %></h2>
+    <div class="club-card">
+      <ul class="club-list">
+        <% if (club.classes.length > 0) { %>
+          <% club.classes.forEach(lesson => { %>
+            <li><%= lesson.lessonName %> - <%= lesson.lessonType %></li>
+          <% }) %>
+        <% } else { %>
+          <li>No lessons available for this club.</li>
+        <% } %>
+      </ul>
+    </div>
+  <% }) %>
+</div>
