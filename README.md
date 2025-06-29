@@ -4,7 +4,7 @@ Hi! _**Sports Hub**!_ is a simple and smart application for players to discover 
 
 ![Home](public/images/summer.jpg)
 ---
-🔗 [Live Demo](https://hamadbah.github.io/spaceman-project/)
+🔗 [Live Demo](https://sports-hub-cu2f.onrender.com)
 ---
 ## Application Guide
 
