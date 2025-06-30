@@ -78,5 +78,12 @@ Hi! _**Sports Hub**!_ is a simple and smart application for players to discover 
 [Link to Optional chaining (?.)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
 
 ---
+## Project Links
+
+[Project Figma](https://www.figma.com/board/37i2O2Viweb97zslkg6A91/Unit-2-Figma?node-id=0-1&p=f&t=lalw6un5oHVHOCAa-0)
+
+[Project Trello](https://trello.com/b/3EVy66h8/sports-hub)
+
+[Project ERD](https://lucid.app/lucidchart/f58d4eb8-8a07-4832-95d4-4110059f6496/edit?viewport_loc=-1493%2C-319%2C1860%2C958%2C0_0&invitationId=inv_c0339265-8152-498b-ab5e-4d031cdd97e4)
 
 > I really enjoy developing this application and I hope you all get benefit from it!
