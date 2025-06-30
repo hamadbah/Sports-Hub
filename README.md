@@ -86,4 +86,11 @@ Hi! _**Sports Hub**!_ is a simple and smart application for players to discover 
 
 [Project ERD](https://lucid.app/lucidchart/f58d4eb8-8a07-4832-95d4-4110059f6496/edit?viewport_loc=-1493%2C-319%2C1860%2C958%2C0_0&invitationId=inv_c0339265-8152-498b-ab5e-4d031cdd97e4)
 
+## Future Enhancements
+
+I have two main future goals, which are
+- _**Online Payment**_ : Once the player enroll to a lesson, they need to pay for it.
+- _**Develop Mobile Application**_ : Where users could access the application easily from anywhere and anytime.
+
+
 > I really enjoy developing this application and I hope you all get benefit from it!
