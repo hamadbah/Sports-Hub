@@ -93,7 +93,7 @@ router.put('/:id', async (req, res) => {
   const {
     lessonName,lessonPrice,lessonType,lessonDuration,lessonInstructions,clubs: newClubId
     } = req.body;
-    const oldClubId = lesson.clubs?.toString(); //? mark used to avoid null or undifined lesson.clubs
+    const oldClubId = lesson.clubs?.toString();
     // Check for duplicates
     const duplicate = await Lesson.findOne({
       _id: { $ne: req.params.id }, // $ne mean not equal
