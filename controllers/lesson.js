@@ -23,7 +23,6 @@ router.get('/new', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  req.body.owner = req.session.user._id;
 
   if (!Array.isArray(req.body.clubs)) {
     req.body.clubs = req.body.clubs ? [req.body.clubs] : [];
@@ -102,6 +101,7 @@ router.put('/:id', async (req, res) => {
       clubs: newClubId
     });
     if (duplicate) {
+      const instructors = await User.find({ role: 'Instructor' });
       return res.render('lessons/edit.ejs', {
         lesson,
         clubs: allClubs,
